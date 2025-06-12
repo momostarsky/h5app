@@ -1,0 +1,15 @@
+{
+  "name": "h5app",
+  "version": "1.0.0",
+  "description": "Base Electron VTK.js",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "daihanzhang@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^36.4.0"
+  }
+}
