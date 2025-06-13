@@ -5,7 +5,14 @@ ipcMain.handle('show-open-dialog', () => {
   return dialog.showOpenDialogSync({ properties: ['openFile'] });
 });
 
+ipcMain.handle('get-app-path', () => {
+  return app.getAppPath();
+});
+
+ipcMain.handle('ping', () => 'pong');
+
 const createWindow = () => {
+  
   const win = new BrowserWindow({
     width: 800,
     height: 600,
@@ -17,16 +24,17 @@ const createWindow = () => {
   })
 
   win.loadFile('index.html');
+  
   win.webContents.openDevTools();
 }
 
-// Register the ping handler at the top level
-//ipcMain.handle('ping', () => 'pong');
+ 
+
 
 app.whenReady().then(() => {
-  createWindow()
-  ipcMain.handle('ping', () => 'pong');
+  createWindow() 
   app.on('activate', () => {
+    
     //事件监听器，当应用被“激活”但没有任何窗口时，再次创建窗口。
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow()
