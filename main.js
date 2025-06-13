@@ -1,11 +1,18 @@
-const { app, BrowserWindow,ipcMain } = require('electron/main')
+const { app, BrowserWindow,ipcMain,dialog, ipcRenderer } = require('electron/main')
 const path = require('node:path')
+ 
+ipcMain.handle('show-open-dialog', () => {
+  return dialog.showOpenDialogSync({ properties: ['openFile'] });
+});
+
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
+      preload: path.join(__dirname, 'preload.js'),
+      nodeIntegration: false, // safer
+      contextIsolation: true,
     }
   })
 
@@ -14,12 +21,13 @@ const createWindow = () => {
 }
 
 // Register the ping handler at the top level
-
+//ipcMain.handle('ping', () => 'pong');
 
 app.whenReady().then(() => {
   createWindow()
   ipcMain.handle('ping', () => 'pong');
   app.on('activate', () => {
+    //事件监听器，当应用被“激活”但没有任何窗口时，再次创建窗口。
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow()
     }
