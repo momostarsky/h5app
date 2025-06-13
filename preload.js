@@ -11,4 +11,7 @@ contextBridge.exposeInMainWorld('versions', {
 contextBridge.exposeInMainWorld('systemAPI', {
   invoke: (channel, data) => ipcRenderer.invoke(channel, data),
   getAppPath: () => ipcRenderer.invoke('get-app-path'), 
+  buildFilePath: (fileName) => ipcRenderer.invoke('build-file-path', fileName),
+  writeFile: (filePath, content) => ipcRenderer.invoke('write-file', filePath, content),
+  readFile: (filePath) => ipcRenderer.invoke('read-file', filePath),
 });

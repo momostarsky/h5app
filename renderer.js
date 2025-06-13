@@ -11,7 +11,8 @@ Node.js (v${versions.node()}), 和 Electron (v${versions.electron()}), and Direc
 
     // You can safely continue other dependent logic here
     console.log('继续执行依赖于 appPath 的逻辑', appPath);
-
+    appConfig.writeFile('test.txt', 'Hello, World!') ;
+    appConfig.readFile('test.txt' ) ;
   } catch (error) {
     console.error('获取应用路径失败:', error);
   }
